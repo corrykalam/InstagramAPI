@@ -1,6 +1,9 @@
 import requests, json, re, time
 
 class InstagramApi:
+    """
+    created with <3 by corrykalam
+    """
     def __init__(self, username=None, password=None, session={}):
         self.username = username
         self.password = password
