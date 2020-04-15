@@ -1,6 +1,9 @@
 import requests, json, re, time
 
 class InstagramApi:
+    """
+    created with <3 by corrykalam
+    """
     def __init__(self, username=None, password=None, session={}):
         self.username = username
         self.password = password
@@ -49,7 +52,8 @@ class InstagramApi:
             data_login = {
                 'action': 'login',
                 'status': 'error',
-                'username': self.username
+                'username': self.username,
+                'details': 'wrong username/password'
             }
         elif '{"authenticated": true' in fetch_login.text:
             print("You login as %s"%(self.username))
@@ -115,36 +119,51 @@ class InstagramApi:
         status = json.loads(post.text)
         if status["status"] == "ok":
             print("Success seen story_id %s"%(reelMediaId))
+            status_res = True
         else:
             print("Failed seen story_id %s"%(reelMediaId))
+            status_res = False
+        return status_res
     def follow(self, user_id):
         post = requests.post(self.base_url+"/web/friendships/%s/follow/"%(user_id), headers=self.headers)
         status = json.loads(post.text)
         if status["status"] == "ok":
             print("Success unfollow id %s"%(user_id))
+            status_res = True
         else:
             print("Failed unfollow id %s"%(user_id))
+            status_res = False
+        return status_res
     def unfollow(self, user_id):
         post = requests.post(self.base_url+"/web/friendships/%s/unfollow/"%(user_id), headers=self.headers)
         status = json.loads(post.text)
         if status["status"] == "ok":
             print("Success unfollow id %s"%(user_id))
+            status_res = True
         else:
             print("Failed unfollow id %s"%(user_id))
+            status_res = False
+        return status_res
     def likePost(self, id_post):
         post = requests.post(self.base_url+"/web/likes/%s/like/"%(id_post), headers=self.headers)
         status = json.loads(post.text)
         if status["status"] == "ok":
             print("Success like id %s"%(id_post))
+            status_res = True
         else:
             print("Failed like id %s"%(id_post))
+            status_res = False
+        return status_res
     def unlikePost(self, id_post):
         post = requests.post(self.base_url+"/web/likes/%s/unlike/"%(id_post), headers=self.headers)
         status = json.loads(post.text)
         if status["status"] == "ok":
             print("Success unlike id %s"%(id_post))
+            status_res = True
         else:
             print("Failed unlike id %s"%(id_post))
+            status_res = False
+        return status_res
     def findProfile(self, username):
         post = requests.get(self.base_url+"/%s/"%(username), headers=self.headers).text
         if "The link you followed may be broken, or the page may have been removed." in post:
