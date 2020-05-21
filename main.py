@@ -9,7 +9,7 @@ print(menu)
 choice = int(input("Choice: "))
 username = input("Username: ")
 password = input("Password: ")
-delay = int(input("Delay (Milliseconds): "))
+delay = int(input("Delay (Seconds): "))
 user = InstagramApi(username, password)
 login = user.logIn()
 if login["status"] == "success":
